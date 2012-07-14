@@ -1,0 +1,30 @@
+!!! XML
+!!!
+%head
+  %script{:type => "text/javascript",:src => "http://current.bootstrapcdn.com/bootstrap-v204/js/bootstrap.min.js"}
+  %link{:rel => "stylesheet",:href=>"http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap-combined.min.css"}
+  %link{:rel => "stylesheet",:href=>"style.css"}
+  %title LyricCards
+
+%body
+  %div{:class=>"navbar navbar-fixed-top"}
+    %div.navbar-inner
+      .container
+        %ul.nav
+          %li.active
+            %a.brand{:href=>"#"}Lyric Cards
+          %li
+            %a{:href=>"#"}About
+          %li
+            %a{:href=>"#"}Blog
+
+  .container= yield
+
+
+  %footer{:class=>"footer"}
+    %hr
+    .container
+      %p 
+        Built at &copy;redatom with love
+      %p
+        We owe a lot to MusixMatch API & Heroku 
