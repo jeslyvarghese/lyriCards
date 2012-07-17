@@ -22,8 +22,31 @@ letter-spacing: -1px;
 color:#FF6600;
 }
 .leaderboard p {
-font-size: 18px;
+font-size: 20px;
 font-weight: 200;
 line-height: 27px;
 }
-	
+form {margin-top: 50px;}
+input#search{
+font-size:20pt;
+line-height:1em;argin: 0 0.25em 0 0;
+padding: 0;
+width: 95%;
+height: 40pt;
+-webkit-border-radius: 0.25em;
+-moz-border-radius: 0.25em;
+vertical-align: text-top;
+text-align: right;
+}
+button#btn_search{
+font-size:20pt;
+line-height:1em;argin: 0 0.25em 0 0;
+width: 4.5%;
+padding: 0;
+margin-left:2px;
+height: 40pt;
+-webkit-border-radius: 40pt;
+-moz-border-radius: 40pt;
+vertical-align: text-top;
+}
+

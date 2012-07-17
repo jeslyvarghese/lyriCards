@@ -1,4 +1,7 @@
-.leaderboard
+%script{:type=>"text/javascript",:src=>src="http://malsup.github.com/jquery.form.js"}
+%script{:type=>"text/javascript",:src=>src="scripts/select_blackmagic.js"}
+
+.leaderboard{:id=>"select_lbrd"}
   %h1 Select
   %div{:class=>'progress progress-info progress-striped',:style=>"margin-bottom: 9px;"}
     %div{:class=>'bar',:style=>"width: 0%"}
@@ -6,3 +9,32 @@
   %blockquote 
     %p Every heart sings a song, incomplete, until another heart whispers back. Those who wish to sing always find a song. At the touch of a lover, everyone becomes a poet.
     %small Plato
+  .row
+    .span12
+      .select_content
+        #search
+          .container
+            .row
+              .span11
+                %form#search_form{:class=>"well form-search",:method=>"post",:action=>'select'}
+                  %input#search_songs{:type=>"text",:name=>"query",:class=>"input-medium search-query",:value=>"Search for your favourite lines"}
+%hr
+.row
+  .span12
+    #loading Loading.....
+    #results
+      .container
+        #result_grid
+%hr
+.row
+  .span12
+    .container
+      #show_lyric_btn
+        %button{:id=>"bring-lyrics","data-loading-text".to_sym=>'loading...',:class=>"btn btn-primary",:onClick=>"load_lyrics()"}Show me the lyrics of  
+      #lyric_selector
+        %form{:id=>"levitate",:method=>"post",:action=>"/spice"}
+          %input{:type=>"hidden",:id=>"music_box",:name=>"selected_lyrics"}
+          #lyric_contents
+    %button{:id=>"make-card",:class=>"btn btn-primary"}Lets Make The Card!!
+          
+

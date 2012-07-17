@@ -1,0 +1,10 @@
+%div{:class=>"span8 offset2"}
+  #lyrics
+    -index=0
+    - @lyric.each do |line|
+      -index+=1
+      .lyric_line{:id=>"#{index}",:selected=>false}
+        -unless line==""
+          =line
+        -else
+          %hr

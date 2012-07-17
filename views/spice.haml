@@ -1,3 +1,16 @@
+%script{:type=>"text/javascript",:src=>"scripts/jscolor/jscolor.js"}
+:javascript
+  $(document).ready(function(){
+    $("#tool_box").kendoPanelBar();
+    $("#font_list").kendoDropDownList({
+        dataTextField: "text",
+        dataValueField: "value",
+        dataSource: [
+            { text: "Item1", value: "1" },
+            { text: "Item2", value: "2" }
+        ]
+    });
+  });
 .leaderboard
   %h1 Spice
   %div{:class=>'progress progress-info progress-striped',:style=>"margin-bottom: 9px;"}
@@ -6,3 +19,31 @@
   %blockquote 
     %p Love was a feeling completely bound up with color, like thousands of rainbows superimposed one on top of the other
     %small Paulo Coelho
+.row
+  .span12
+    .container
+      .span3
+        %form  
+          %ul#tool_box
+            %li 
+              Background Color
+              #bck_color
+                %input.color{:name=>'bg_color',:onchange=>"document.getElementById('bg_image').style.backgroundColor = '#'+this.color"}
+            %li 
+              Font Color
+              #fnt_color
+                %input.color{:name=>'font_color',:onchange=>"document.getElementById('lyrics_image').style.color = '#'+this.color"}
+            %li 
+              Font
+              #fnt_slctr
+                %input#font_list
+
+      .span8
+        #preview_box
+          %h3 Preview
+          #bg_image
+            -font_size = @sel[:font_size]
+            #lyrics_image{:style=>"font-size:#{font_size}px;"}
+              -@sel[:lyrics].each do |line|
+                .line{:style=>"line-height:#{font_size+5}px"}
+                  = line
