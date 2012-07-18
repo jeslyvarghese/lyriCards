@@ -3,9 +3,9 @@ require 'sinatra/activerecord'
 
 ActiveRecord::Base.establish_connection(  
 :adapter => "mysql",  
-:host => "sql301.0fees.net",  
-:database => "fees0_7222496_lyri",
-:username=>"fees0_7222496",
+:host => "instance21633.db.xeround.com:14290",  
+:database => "lyri",
+:username=>"lyri_root",
 :password => "codeMasters"  
 )
 
