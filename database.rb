@@ -7,7 +7,7 @@ ActiveRecord::Base.establish_connection(
 :port=>14290,  
 :database => "lyri",
 :username=>"lyri_root",
-:password => "codeMasters"  
+:password => "walnut"  
 )
 
 class Track<ActiveRecord::Base
