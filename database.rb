@@ -5,7 +5,7 @@ ActiveRecord::Base.establish_connection(
 :adapter => "mysql",  
 :host => "sql301.0fees.net",  
 :database => "fees0_7222496_lyri",
-:username=>"fees0_7222496"
+:username=>"fees0_7222496",
 :password => "codeMasters"  
 )
 
