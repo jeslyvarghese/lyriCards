@@ -30,7 +30,7 @@
     $("#search_songs").focus(function(){this.value=""});
     $("#search_songs").blur(function(){if(this.value=="")this.value="Search for your favourite music"});
     $("#search_songs").kendoAutoComplete({
-          minLength:3,
+          minLength:50,
           dataTextField:"name",
           filter: "contains",
           dataSource: new kendo.data.DataSource({
