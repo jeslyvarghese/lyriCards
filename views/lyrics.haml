@@ -1,10 +1,76 @@
-%div{:class=>"span8 offset2"}
-  #lyrics
-    -index=0
-    - @lyric.each do |line|
-      -index+=1
-      .lyric_line{:id=>"#{index}",:selected=>false}
-        -unless line==""
-          =line
+:javascript
+  var sq = new selection_queue('lyric_line');
+  $(document).ready(function(){
+    	$(".lyric_line").click(function(){
+           sq.accept(parseInt(this.id));
+           if(sq.empty)
+            $("#make-card").hide();
+          else
+            $("#make-card").show();
+      		});
+    	
+    	$("#make-card").click(function(){
+        	for(var index=0;index<=sq.list.length;index++)
+         	if($("#"+sq.list[index]).html()!=null)
+          		document.getElementById('music_box').value+=$("#"+sq.list[index]).html();
+        	$("#levitate").submit();
+      		});});
+    function selection_queue(element)
+     {
+        this.selector = element;
+        this.list = new Array(); 
+        this.accept = accept_elem;
+        this.flush = flush
+     }
+    function accept_elem(elem)
+      {
+        if(this.list.length==0|elem+1==this.list[0]||elem-1==this.list[0]||elem+1==this.list[this.list.length-1]||elem-1==this.list[this.list.length-1])
+          {
+            this.list.push(elem);
+            this.list.sort(function(a,b){return a-b});
+            $("#"+elem).attr("selected",true);
+          }
+        else
+        {
+          this.flush();
+          $("."+this.selector).attr("selected",false);
+          this.accept(elem);
+        }
+        console.log(this.list);
+      }
+    function flush()
+     {
+      this.list=new Array();
+     }
+    function empty()
+      {
+        if(this.list.length==0)
+          return true;
+        else
+          return false;
+      }
+
+.leaderboard{:id=>"lyrics_lbrd"}
+  %h1 Select
+  %div{:class=>'progress progress-info progress-striped',:style=>"margin-bottom: 9px;"}
+    %div{:class=>'bar',:style=>"width: 22%"}
+  %p Pick those beautiful few line, which can best describe your feeling
+  %blockquote 
+    %p Every heart sings a song, incomplete, until another heart whispers back. Those who wish to sing always find a song. At the touch of a lover, everyone becomes a poet.
+    %small Plato
+
+#lyric_selector
+  %div{:class=>"span8 offset2"}
+    #lyrics
+      -index=0
+      - @lyric.each do |line|
+        -index+=1
+        -unless line.strip==""
+          .lyric_line{:id=>"#{index}",:selected=>false}
+            =line
         -else
-          %hr
+          %p
+      
+  %form{:id=>"levitate",:method=>"post",:action=>"/spice"}
+    %input{:type=>"hidden",:id=>"music_box",:name=>"selected_lyrics"}
+    %button{:id=>"make-card",:class=>"btn btn-primary"}Lets Make The Card!!

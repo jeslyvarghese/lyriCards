@@ -58,13 +58,15 @@ text-align: right;
 	border-width: 1px;
 }
 .line{
-	margin: 2px 0px 2px 0px;
+	margin: 4px 0px 4px 0px;
 	padding: 1px 1px 1px 1px;
 }
 #lyrics_image {
     width: 90%;
     height:70;
-    margin: 40px auto;
+    margin-top: 30px;
+    margin: 0 auto;
+    padding: 15px 0px 15px 0px;
 }
 #bg_image{
 	border-style: solid;
@@ -91,20 +93,57 @@ text-align: right;
 	cursor: pointer;
 	-webkit-border-radius: 0.25em;
 	-moz-border-radius: 0.25em;
-	padding: 2px 0px 2px 0px;
-	margin: 2px 0px 2px 0px;
+	padding: 10px 0px 2px 0px;
+	margin: 4px 0px 2px 0px;
 	font-size:16pt;
 	height:30px;
 
 }
 .lyric_line{
-	color: #231D27;
-	background-color: #BC7499;
+	color: #000;
+	background-color: #DBD1F9;
 }
 .lyric_line[selected]{
-	color: #DC9370;
-	background-color: #045036;
+	color: #FFF;
+	background-color: #235B79;
 }
 #make-card{
 	width:100%;
+}
+.result{
+	padding-left: 20px;
+}
+.result:hover
+{
+	color: #FFF;
+	background-color: rgb(60,157,208);
+	-webkit-border-radius: 0.25em;
+	-moz-border-radius: 0.25em;
+	text-decoration:none 
+}
+ul.result
+{
+   list-style-type: none;
+   padding: 10px 10px 10px 0px;
+   cursor: pointer;
+}
+li
+{
+	padding: 5px 0px 5px 10px;
+}
+a:link {
+	color: #000;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #000;
+}
+a:hover {
+	text-decoration: none;
+	color: #FFF;
+}
+a:active {
+	text-decoration: none;
+	color: #000;
 }

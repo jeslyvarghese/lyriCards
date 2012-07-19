@@ -1,11 +1,8 @@
-%script{:type=>"text/javascript",:src=>src="http://malsup.github.com/jquery.form.js"}
-%script{:type=>"text/javascript",:src=>src="scripts/select_blackmagic.js"}
-
-.leaderboard{:id=>"select_lbrd"}
+.leaderboard
   %h1 Select
   %div{:class=>'progress progress-info progress-striped',:style=>"margin-bottom: 9px;"}
     %div{:class=>'bar',:style=>"width: 0%"}
-  %p Just find your favourite song and select the lines you love, coz we believe
+  %p Match us with your heart
   %blockquote 
     %p Every heart sings a song, incomplete, until another heart whispers back. Those who wish to sing always find a song. At the touch of a lover, everyone becomes a poet.
     %small Plato
@@ -16,25 +13,28 @@
           .container
             .row
               .span11
-                %form#search_form{:class=>"well form-search",:method=>"post",:action=>'select'}
+                %form#search_form{:class=>"well form-search",:method=>"get",:action=>'/select'}
                   %input#search_songs{:type=>"text",:name=>"query",:class=>"input-medium search-query",:value=>"Search for your favourite lines"}
-%hr
-.row
-  .span12
-    #loading Loading.....
-    #results
-      .container
-        #result_grid
-%hr
-.row
-  .span12
-    .container
-      #show_lyric_btn
-        %button{:id=>"bring-lyrics","data-loading-text".to_sym=>'loading...',:class=>"btn btn-primary",:onClick=>"load_lyrics()"}Show me the lyrics of  
-      #lyric_selector
-        %form{:id=>"levitate",:method=>"post",:action=>"/spice"}
-          %input{:type=>"hidden",:id=>"music_box",:name=>"selected_lyrics"}
-          #lyric_contents
-    %button{:id=>"make-card",:class=>"btn btn-primary"}Lets Make The Card!!
-          
 
+-unless @search_result.nil?
+  .row
+    %div{:class=>"span10 offset2"}
+      #results
+        -unless @search_result.nil?
+          :javascript
+            $(".bar").css("width","11%");
+          -@search_result.each do |result|
+            .span4
+              .result
+                %a{:href=>"/lyrics?track_id=#{result[:track_id]}"}
+                  %ul.result{:id=>"#{result[:track_id]}"}
+                    %h3
+                      %i{:class=>"icon-music"}
+                      =result[:track_name]
+                    %li.artist
+                      %i{:class=>"icon-user"}
+                      =result[:artist_name]
+                    %li.album 
+                      %i{:class=>"icon-headphones"}
+                      =result[:album_name]
+    

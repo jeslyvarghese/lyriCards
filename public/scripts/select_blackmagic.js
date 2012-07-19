@@ -20,11 +20,7 @@
         // $.ajax options can be used here too, for example: 
         //timeout:   3000 
     };
-    $("#make-card").click(function(){
-        for(var index=0;index<=sq.list.length;index++)
-         if($("#"+index).html()!=null)
-          document.getElementById('music_box').value+=$("#"+index).html();
-        $("#levitate").submit();
+
     });
     $("#search_form").ajaxForm(options);
     $("#search_songs").focus(function(){this.value=""});
@@ -140,47 +136,7 @@
           $("#lyric_selector").show();
           $("#lyric_contents").html(data);
           $("#bring-lyrics").removeAttr("disabled").html("Choose another");
-          $(".lyric_line").bind('click',function(){
-           sq.accept(parseInt(this.id));
-           if(sq.empty)
-            $("#make-card").hide();
-          else
-            $("#make-card").show();
-      });
+
       });
     });
   }
-  function selection_queue(element)
-     {
-        this.selector = element;
-        this.list = new Array(); 
-        this.accept = accept_elem;
-        this.flush = flush
-     }
-  function accept_elem(elem)
-      {
-        if(this.list.length==0|elem+1==this.list[0]||elem-1==this.list[0]||elem+1==this.list[this.list.length-1]||elem-1==this.list[this.list.length-1])
-          {
-            this.list.push(elem);
-            this.list.sort(function(a,b){return a-b});
-            $("#"+elem).attr("selected",true);
-          }
-        else
-        {
-          this.flush();
-          $("."+this.selector).attr("selected",false);
-          this.accept(elem);
-        }
-        console.log(this.list);
-      }
-  function flush()
-    {
-      this.list=new Array();
-    }
-  function empty()
-    {
-      if(this.list.length==0)
-        return true;
-      else
-        return false;
-    }

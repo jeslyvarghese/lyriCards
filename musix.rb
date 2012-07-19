@@ -6,6 +6,8 @@ module Musix #Wrapping MusixMatch APIs
 		response = MusixMatch.search_track(:q => query_string,:page_size=>500)
 		if response.status_code == 200
 		  return response
+		else
+		  raise response.status_code
 		end
 	end
 
@@ -14,7 +16,7 @@ module Musix #Wrapping MusixMatch APIs
 	  if response.status_code == 200 && lyrics = response.lyrics
 	  	return lyrics
 	  else
-	  	return response.status_code
+	  		raise response.status_code
 	  end
 	end
 end

@@ -1,4 +1,5 @@
 %script{:type=>"text/javascript",:src=>"scripts/jscolor/jscolor.js"}
+%link{:href=>"fonts.css",:rel=>"stylesheet"}
 :javascript
   $(document).ready(function(){
     $("#tool_box").kendoPanelBar();
@@ -6,6 +7,7 @@
         dataTextField: "text",
         dataValueField: "value",
         dataSource: [
+            
             { text: "Item1", value: "1" },
             { text: "Item2", value: "2" }
         ]
@@ -28,15 +30,22 @@
             %li 
               Background Color
               #bck_color
-                %input.color{:name=>'bg_color',:onchange=>"document.getElementById('bg_image').style.backgroundColor = '#'+this.color"}
+                %input.color{:name=>'bg_color',:onchange=>"document.getElementById('bg_image').style.backgroundColor = '#'+this.color; document.getElementById('text_color').value='#'+this.color;"}
             %li 
-              Font Color
+              Font Color.lyric_line
               #fnt_color
-                %input.color{:name=>'font_color',:onchange=>"document.getElementById('lyrics_image').style.color = '#'+this.color"}
+                %input.color{:name=>'font_color',:onchange=>"document.getElementById('lyrics_image').style.color = '#'+this.color; document.getElementById('background_color').value='#'+this.color;"}
             %li 
               Font
+              
               #fnt_slctr
-                %input#font_list
+                %select#fonts{:onchange=>"document.getElementById('lyrics_image').style.fontFamily=this.value;document.getElementById('font_type').value=this.value;"}
+                  -Dir.foreach('public/fonts') do |font|
+                    -next if font == '.' or font == '..'
+                    =font.gsub!(/\..*/,"").strip!
+                    %option{:id=>font.downcase}
+                      =font
+  
 
       .span8
         #preview_box
@@ -47,3 +56,16 @@
               -@sel[:lyrics].each do |line|
                 .line{:style=>"line-height:#{font_size+5}px"}
                   = line
+      .span8
+        %form{:action=>"show",:method=>"post"}
+          %input{:type=>"hidden",:name=>"text_color",:id=>"text_color"}
+          %input{:type=>"hidden",:name=>"background_color",:id=>"background_color"}
+          %input{:type=>"hidden",:name=>"font_type",:id=>"font_type"}
+          %input{:type=>"hidden",:name=>"font_size",:id=>"font_size",:value=>"#{@sel[:font_size]}"}
+          %input{:type=>"hidden",:name=>"card_type",:id=>"card_type"}
+          %input{:type=>"hidden",:name=>"card_content",:id=>"card_content",:value=>"#{@sel[:lyrics].join('\n')}"}
+          %input{:type=>"hidden",:name=>"top_x",:id=>"top_x",:value=>0}
+          %input{:type=>"hidden",:name=>"top_y",:id=>"top_y",:value=>0}
+          %input{:type=>"hidden",:name=>"bottom_x",:id=>"bottom_x",:value=>2}
+          %input{:type=>"hidden",:name=>"bottom_y",:id=>"bottom_y",:value=>2}
+          %button{:type=>"submit"}Show my card
