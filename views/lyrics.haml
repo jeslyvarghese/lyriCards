@@ -10,7 +10,9 @@
       		});
     	
     	$("#make-card").click(function(){
-        	for(var index=0;index<=sq.list.length;index++)
+          sq.eliminateDupes();
+          console.log(sq.list); 
+          for(var index=0;index<=sq.list.length;index++)
          	if($("#"+sq.list[index]).html()!=null)
           		document.getElementById('music_box').value+=$("#"+sq.list[index]).html();
         	$("#levitate").submit();
@@ -20,6 +22,7 @@
         this.selector = element;
         this.list = new Array(); 
         this.accept = accept_elem;
+        this.eliminateDupes = eliminateDuplicates;
         this.flush = flush
      }
     function accept_elem(elem)
@@ -49,6 +52,20 @@
         else
           return false;
       }
+    function eliminateDuplicates() {
+      var i,
+      len=this.list.length,
+      out=[],
+      obj={};
+
+      for (i=0;i<len;i++) {
+        obj[this.list[i]]=0;
+      }
+      for (i in obj) {
+        out.push(i);
+      }
+      this.list = out;
+    }
 
 .leaderboard{:id=>"lyrics_lbrd"}
   %h1 Select

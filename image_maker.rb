@@ -10,14 +10,21 @@ module ImageMaker
 		p content_text
 		content.font = "#{Dir.pwd}/public/fonts/#{params[:font_type]}.ttf"
 		content.font_stretch = Magick::UltraCondensedStretch
-		content.pointsize = params[:font_size].to_i
+		font_size = params[:font_size].to_i
+		content.pointsize = font_size
 		content.interline_spacing = 0
 		content.gravity = Magick::CenterGravity
+		content_metric = content.get_multiline_type_metrics(pic,content_text)
+		until content_metric.width<825 do
+			font_size-=10
+			content.pointsize= font_size;
+			content_metric = content.get_multiline_type_metrics(pic,content_text)
+		end
 		top_x = params[:top_x].to_i
 		top_y = params[:top_y].to_i
 		bottom_x = params[:bottom_x].to_i
 		bottom_y = params[:bottom_y].to_i
-		pic.annotate(content,800,250,bottom_x,bottom_y,content_text){
+		pic.annotate(content,800,250,20,5,content_text){
 			self.fill = params[:text_color]
 		}
 		file_name = (0...25).map{65.+(rand(25)).chr}.join

@@ -17,11 +17,11 @@
             %li 
               Background Color
               #bck_color
-                %input.color{:name=>'bg_color',:onchange=>"document.getElementById('bg_image').style.backgroundColor = '#'+this.color; document.getElementById('text_color').value='#'+this.color;"}
+                %input.color{:name=>'bg_color',:onchange=>"document.getElementById('bg_image').style.backgroundColor = '#'+this.color; document.getElementById('background_color').value='#'+this.color;"}
             %li 
-              Font Color.lyric_line
+              Font Color
               #fnt_color
-                %input.color{:name=>'font_color',:onchange=>"document.getElementById('lyrics_image').style.color = '#'+this.color; document.getElementById('background_color').value='#'+this.color;"}
+                %input.color{:name=>'font_color',:onchange=>"document.getElementById('lyrics_image').style.color = '#'+this.color; document.getElementById('text_color').value='#'+this.color;"}
             %li 
               Font
               
@@ -55,4 +55,5 @@
           %input{:type=>"hidden",:name=>"top_y",:id=>"top_y",:value=>0}
           %input{:type=>"hidden",:name=>"bottom_x",:id=>"bottom_x",:value=>2}
           %input{:type=>"hidden",:name=>"bottom_y",:id=>"bottom_y",:value=>2}
+          %input{:type=>"hidden",:name=>"max_len",:value=>"#{@sel[:max_len]}"}
           %button{:type=>"submit"}Show my card
