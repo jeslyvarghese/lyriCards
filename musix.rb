@@ -16,7 +16,6 @@ module Musix #Wrapping MusixMatch APIs
 	  if response.status_code == 200 && lyrics = response.lyrics
 	  	return lyrics
 	  else
-	  	  p response.status_code
 	  	  raise response.status_code
 	  end
 	end

@@ -67,7 +67,7 @@
         -index+=1
         -unless line.strip==""
           .lyric_line{:id=>"#{index}",:selected=>false}
-            =line
+            =line.gsub("\n","")
         -else
           %p
       

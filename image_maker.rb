@@ -2,11 +2,12 @@ require 'RMagick'
 
 module ImageMaker
 	def self.make_image(params)
-		pic = Magick::Image.new(851,315){
+		pic = Magick::Image.new(851,319){
 		self.background_color =params[:background_color]
 		}
 		content = Magick::Draw.new
-		content_text = params[:card_content]
+		content_text = params[:card_content].gsub("\r","")
+		p content_text
 		content.font = "#{Dir.pwd}/public/fonts/#{params[:font_type]}.ttf"
 		content.font_stretch = Magick::UltraCondensedStretch
 		content.pointsize = params[:font_size].to_i
@@ -16,7 +17,7 @@ module ImageMaker
 		top_y = params[:top_y].to_i
 		bottom_x = params[:bottom_x].to_i
 		bottom_y = params[:bottom_y].to_i
-		content.annotate(pic,top_x,top_y,bottom_x,bottom_y,content_text){
+		pic.annotate(content,800,250,bottom_x,bottom_y,content_text){
 			self.fill = params[:text_color]
 		}
 		file_name = (0...25).map{65.+(rand(25)).chr}.join

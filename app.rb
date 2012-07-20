@@ -47,10 +47,12 @@ post '/spice' do
 	selected.map! do |line| 
 		line.gsub!(/\(\d\)/,"")
 		line.gsub!(/\<.*\>/)
+		line.gsub("\n","")
 		line unless (line.strip!).length==0
 	end
+	selected.compact!
 	size = selected.length
-	font_size = 250/size #replace this by a literal
+	font_size = 180/size #replace this by a literal
 	@sel[:lyrics] = selected
 	@sel[:font_size]= font_size
 	@sel
