@@ -26,16 +26,16 @@ end
 
 get '/lyrics' do
 	track_id = params[:track_id]
-	#begin
+	begin
 		@lyric = Trax.lyrics? track_id
 		@lyric = @lyric.split("\n")
 		@lyric.pop
 		@lyric
 		haml :lyrics
-	#rescue Exception => e
-	#	@error = e
-	#	haml :err		
-	#end
+	rescue Exception => e
+		@error = e
+		haml :err		
+	end
 end
 
 post '/spice' do

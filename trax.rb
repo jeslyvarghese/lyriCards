@@ -10,7 +10,22 @@ module Trax
 				result[:track_id] =  track.track_id
 				result[:artist_name] = track.artist_name
 				result[:album_name] = track.album_name
-				Track.find_or_create_by_mxid_and_name(
+				search_list<<result	
+			end
+		Thread.new { Trax::result_to_db tracks }
+		return search_list
+	end
+
+	def self.lyrics?(track_id)
+		lyrics = Musix::get_lyrics track_id
+		Lyric.find_or_create_by_mxid(:mxid=>lyrics.lyrics_id,
+			:content=>lyrics.lyrics_body,:track_id=>track_id)
+		return lyrics.lyrics_body
+	end
+
+	def self.result_to_db(tracks)
+		tracks.each do |track|
+			Track.find_or_create_by_mxid_and_name(
 					:mxid=>track.track_id,
 					:name=>track.track_name,
 					:length=>track.track_length,
@@ -24,15 +39,7 @@ module Trax
 					:cover=>track.album_coverart_100x100,
 					:artist_id=>track.artist_id
 					)
-				search_list<<result
-			end
-		return search_list
-	end
-
-	def self.lyrics?(track_id)
-		lyrics = Musix::get_lyrics track_id
-		Lyric.find_or_create_by_mxid(:mxid=>lyrics.lyrics_id,
-			:content=>lyrics.lyrics_body,:track_id=>track_id)
-		return lyrics.lyrics_body
+		end
+		ActiveRecord::Base.connection.close
 	end
 end
