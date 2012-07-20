@@ -18,8 +18,11 @@ module Trax
 
 	def self.lyrics?(track_id)
 		lyrics = Musix::get_lyrics track_id
-		Lyric.find_or_create_by_mxid(:mxid=>lyrics.lyrics_id,
+		Thread.new{
+			Lyric.find_or_create_by_mxid(:mxid=>lyrics.lyrics_id,
 			:content=>lyrics.lyrics_body,:track_id=>track_id)
+			ActiveRecord::Base.connection.close
+			}
 		return lyrics.lyrics_body
 	end
 
@@ -39,7 +42,8 @@ module Trax
 					:cover=>track.album_coverart_100x100,
 					:artist_id=>track.artist_id
 					)
+			ActiveRecord::Base.connection.close
+			p "CXN Closed....."
 		end
-		ActiveRecord::Base.connection.close
 	end
 end

@@ -15,16 +15,21 @@
         %form  
           %ul#tool_box
             %li 
-              Background Color
+              %h3
+                %i{:class=>"icon-picture"}
+                Background Color
               #bck_color
                 %input.color{:name=>'bg_color',:onchange=>"document.getElementById('bg_image').style.backgroundColor = '#'+this.color; document.getElementById('background_color').value='#'+this.color;"}
-            %li 
-              Font Color
+            %li
+              %h3 
+                %i{:class=>"icon-pencil"}
+                Font Color
               #fnt_color
                 %input.color{:name=>'font_color',:onchange=>"document.getElementById('lyrics_image').style.color = '#'+this.color; document.getElementById('text_color').value='#'+this.color;"}
-            %li 
-              Font
-              
+            %li
+              %h3 
+                %i{:class=>"icon-font"}
+                Font
               #fnt_slctr
                 %select#fonts{:onchange=>"document.getElementById('lyrics_image').style.fontFamily=this.value;document.getElementById('font_type').value=this.value;"}
                   -Dir.foreach('public/fonts') do |font|
@@ -37,6 +42,7 @@
       .span8
         #preview_box
           %h3 Preview
+          %p The preview widget isn't fixed yet, please wait for some moments until the font load, also don't worry if the contents overflow. It will be fixed in your real card.
           #bg_image
             -font_size = @sel[:font_size]
             #lyrics_image{:style=>"font-size:#{font_size}px;"}

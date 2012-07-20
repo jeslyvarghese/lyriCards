@@ -1,10 +1,18 @@
 require 'sinatra'
 require 'haml'
+require 'koala'
+
 require_relative 'trax.rb'
 require_relative 'image_maker.rb'
-enable :sessions
+require_relative 'facebook.rb'
 
+enable :sessions
+@friends={}
 get '/' do
+	@app_id = 	'232653716855302'
+	@redirect_id = 'http://localhost:4567/authenticate'
+	@permission_names = 'publish_stream,read_friendlists,publish_actions'
+	@state_string=(0...25).map{65.+(rand(25)).chr}.join
 	haml :index
 end
 
@@ -26,16 +34,16 @@ end
 
 get '/lyrics' do
 	track_id = params[:track_id]
-	begin
+	#begin
 		@lyric = Trax.lyrics? track_id
 		@lyric = @lyric.split("\n")
 		@lyric.pop
 		@lyric
 		haml :lyrics
-	rescue Exception => e
-		@error = e
-		haml :err		
-	end
+	#rescue Exception => e
+	#	@error = e
+	#	haml :err		
+	#end
 end
 
 post '/spice' do
@@ -77,6 +85,13 @@ post '/show' do
 	haml :show
 end
 
+get'/friends' do
+	Facebook::fetch_friends session[:access_token],session[:friends]
+	@friends = session[:friends]
+	content_type :json
+	@friends.to_json
+end
+
 get '/success' do
 	haml :success
 end
@@ -99,4 +114,14 @@ get '/songs' do
 	end
 	content_type :json
 	response.to_json
+end
+
+get '/authenticate' do
+	state = params[:state]
+	code = params[:code]
+	haml :not_allowed if params[:error_reason]=="user_denied"
+	@oauth = Koala::Facebook::OAuth.new(232653716855302, "8a4a0d15cb6be51df31d1ac1a16bd61c",'http://localhost:4567/authenticate')
+	access_token = @oauth.get_access_token(code)
+	session[:access_token] = access_token
+	redirect '/search'
 end
