@@ -6,7 +6,11 @@ require_relative 'trax.rb'
 require_relative 'image_maker.rb'
 require_relative 'facebook.rb'
 
-enable :sessions
+configure do
+  enable :sessions
+  set :session_secret, ENV['SESSION_SECRET'] ||= 'super secret'
+end
+
 @friends={}
 get '/' do
 	@app_id = 	'474165465927936'
