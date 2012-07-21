@@ -10,6 +10,11 @@
       		});
     	
     	$("#make-card").click(function(){
+        if(sq.empty)
+          {
+            alert("Select some lyrics first!!");
+            return; 
+          }
           sq.eliminateDupes();
           console.log(sq.list); 
           for(var index=0;index<=sq.list.length;index++)
@@ -90,4 +95,5 @@
       
   %form{:id=>"levitate",:method=>"post",:action=>"/spice"}
     %input{:type=>"hidden",:id=>"music_box",:name=>"selected_lyrics"}
-    %button{:id=>"make-card",:class=>"btn btn-primary"}Lets Make The Card!!
+    .span3
+      %button{:id=>"make-card",:class=>"btn btn-primary"}Lets Make The Card!!

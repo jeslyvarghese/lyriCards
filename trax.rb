@@ -12,6 +12,7 @@ module Trax
 				result[:album_name] = track.album_name
 				search_list<<result	
 			end
+		p "search complete.."
 		Thread.new { Trax::result_to_db tracks }
 		return search_list
 	end
@@ -43,7 +44,6 @@ module Trax
 					:artist_id=>track.artist_id
 					)
 			ActiveRecord::Base.connection.close
-			p "CXN Closed....."
 		end
 	end
 end

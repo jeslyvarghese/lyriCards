@@ -7,7 +7,6 @@ module ImageMaker
 		}
 		content = Magick::Draw.new
 		content_text = params[:card_content].gsub("\r","")
-		p content_text
 		content.font = "#{Dir.pwd}/public/fonts/#{params[:font_type]}.ttf"
 		content.font_stretch = Magick::UltraCondensedStretch
 		font_size = params[:font_size].to_i
@@ -28,7 +27,7 @@ module ImageMaker
 			self.fill = params[:text_color]
 		}
 		file_name = (0...25).map{65.+(rand(25)).chr}.join
-		pic.write("#{Dir.pwd}/public/images/#{file_name}.png")
+		pic.write("#{Dir.pwd}/public/usr_images/#{file_name}.png")
 		return "#{file_name}.png"
 	end
 end

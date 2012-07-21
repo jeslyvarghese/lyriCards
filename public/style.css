@@ -153,3 +153,45 @@ a:active {
 	text-decoration: none;
 	color: #000;
 }
+.intro_icon
+{
+	height: 200px;
+	width: 200px;
+	padding-bottom: 25px;
+}
+
+#show_friends{
+	cursor: pointer;
+}
+#friends{
+	max-height: 300px;
+	overflow: auto;
+	overflow-x: hidden;
+	border-width: 1px;
+}
+.friend{
+	-webkit-border-radius: 0.25em;
+	-moz-border-radius: 0.25em;
+	cursor: pointer;
+}
+#select_box{
+	padding-top: 40px;
+
+	height:400px;
+}
+#image{
+	padding-top: 30px;
+}
+#selected{
+	overflow: 
+	width: 400px;
+}
+.label-info{
+	margin-right: 5px;
+}
+.label{
+	display: inline;
+}
+li:selected{
+	background-color: #B3F36D;
+}
