@@ -22,6 +22,17 @@
             %a{:href=>"#"}About
           %li
             %a{:href=>"#"}Blog
+          %li
+            #fb-root
+              :javascript
+                (function(d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s); js.id = id;
+                    js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=474165465927936";
+                    fjs.parentNode.insertBefore(js, fjs);
+                  }(document, 'script', 'facebook-jssdk'));
+            .fb-like{"data-href".to_sym=>"https://www.facebook.com/LyriCards","data-send".to_sym=>"true","data-layout".to_sym=>"button_count","data-width".to_sym=>"300","data-show-faces".to_sym=>"true", "data-action".to_sym=>"recommend","data-colorscheme".to_sym=>"dark","data-font".to_sym=>"segoe ui"}
 
   .container= yield
 
