@@ -38,3 +38,13 @@
           I know there are a lot of bugs in there, and the usability is twisted, but I am short of time. But I love suggestion and also any queries, just write me to
           %a{:href=>"mailto:justin@redatomize.com",:style=>"hover"}justin@redatomize.com
         %small justin
+:javascript
+  var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33555273-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
