@@ -141,9 +141,8 @@ get '/authenticate' do
 	state = params[:state]
 	code = params[:code]
 	haml :not_allowed if params[:error_reason]=="user_denied"
-	Thread.new{@oauth = Koala::Facebook::OAuth.new(474165465927936, "3460693681a1781d0677d60447e8b88f",'http://lyricards.redatomize.com/authenticate')
+	@oauth = Koala::Facebook::OAuth.new(474165465927936, "3460693681a1781d0677d60447e8b88f",'http://lyricards.redatomize.com/authenticate')
 	access_token = @oauth.get_access_token(code)
 	session[:access_token] = access_token
-	}
 	redirect '/search'
 end
