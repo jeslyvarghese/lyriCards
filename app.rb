@@ -96,7 +96,6 @@ post '/show' do
 end
 
 get'/friends' do
-	friend_threads[session[:access_token]].join
 	content_type :json
 	session[:friends].to_json
 end
