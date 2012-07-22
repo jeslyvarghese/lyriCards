@@ -95,7 +95,7 @@ post '/show' do
 end
 
 get'/friends' do
-	@friends = User.find(:fbuid=>FbGraph::User.me(access_token).identifier).friends
+	@friends = User.where(:fbuid=>FbGraph::User.me(access_token).identifier).friends
 	content_type :json
 	@friends
 end
