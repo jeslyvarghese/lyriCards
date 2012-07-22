@@ -95,7 +95,7 @@ post '/show' do
 end
 
 get'/friends' do
-	@friends = (Facebook::fetch_friends session[:access_token]).to_json
+	@friends = User.find(:fbuid=>FbGraph::User.me(access_token).identifier).friends
 	content_type :json
 	@friends
 end

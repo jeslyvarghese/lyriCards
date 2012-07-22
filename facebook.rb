@@ -58,7 +58,7 @@ module Facebook
 	end
 
 	def self.user(uid)
-		User.find_or_create_by_fbuid(:fbuid=>uid)
+		User.find_or_create_by_fbuid(:fbuid=>uid,:friends=>(Facebook::fetch_friends session[:access_token]).to_json)
 	end
 
 	def self.log_post(fbuid,filename)
