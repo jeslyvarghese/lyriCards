@@ -14,7 +14,7 @@ end
 @friends={}
 get '/' do
 	@app_id = 	'474165465927936'
-	@redirect_id = 'http://lyricards.redatomize.com/authenticate'
+	@redirect_id = 'http://lyricards.redatomize.com/images/heart.png'
 	@permission_names = 'publish_stream,publish_actions'
 	@state_string=(0...25).map{65.+(rand(25)).chr}.join
 	haml :index
