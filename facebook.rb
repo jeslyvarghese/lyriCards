@@ -3,8 +3,9 @@ require 'fb_graph'
 
 module Facebook
 	def self.fetch_friends(access_token)
-		friends = FbGraph::User.me(access_token)
-		return result_list
+		graph =  Koala::Facebook::GraphAPI.new(access_token)
+		friends = graph.get_connections("me", "friends")
+		return friends
 	end
 
 	def self.upload_photo(params)
