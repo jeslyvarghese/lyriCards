@@ -43,7 +43,6 @@
     		return flag;
     	}
     $("#load_friends").click(function(){
-      if($(this).attr("loaded")=="false"){
     	$(this).attr("loaded",true)
     	$(this).html("<img src='/images/busy.gif'/>Loading friend list..");
       $.ajax({
@@ -64,7 +63,7 @@
               var friendList = new List('friends', options);
     		  }
     		});
-                    }});
+                    });
     });
 .leaderboard
   %h1 Show
