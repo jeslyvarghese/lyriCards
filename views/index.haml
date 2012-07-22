@@ -2,7 +2,7 @@
   %h1 Create Your Lyric Card!!
   %p You can create your own lyric card, picking the best lyrics from your favourite song.You can customize your card with your loved colors and fonts.And you can give it to one you love or make it your cover picture. Yes! Its possible with 3 easy steps.
   %a{:href=>"https://www.facebook.com/dialog/oauth?client_id=#{@app_id}&redirect_uri=#{@redirect_id}&scope=#{@permission_names}&state=#{@state_string}"}
-    %img{:src=>'images/connect_fb.png'}
+    %img{:src=>'images/connect_fb.png',:alt=>'Connect with facebook to get started'}
 .row
   .span4
     %img.intro_icon{:src=>"/images/note.png"}
