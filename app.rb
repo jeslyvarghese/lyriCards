@@ -105,6 +105,7 @@ post '/success' do
 	users = params[:friends].split(',')
 	users.collect!{|user| user unless user==""}
 	users.compact!
+	p users
 	params[:file_name] = "/public/usr_images/#{session[:pic_name]}"
 	params[:user_list]= users
 	params[:message] = params[:message]
