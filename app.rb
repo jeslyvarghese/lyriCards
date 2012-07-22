@@ -14,7 +14,7 @@ end
 @friends={}
 get '/' do
 	@app_id = 	'474165465927936'
-	@redirect_id = 'http://lyricards.redatomize.com/'
+	@redirect_id = 'http://lyricards.redatomize.com/authenticate'
 	@permission_names = 'publish_stream,publish_actions'
 	@state_string=(0...25).map{65.+(rand(25)).chr}.join
 	haml :index
@@ -149,7 +149,7 @@ get '/authenticate' do
 	state = params[:state]
 	code = params[:code]
 	haml :not_allowed if params[:error_reason]=="user_denied"
-	@oauth = Koala::Facebook::OAuth.new(474165465927936, "3460693681a1781d0677d60447e8b88f",'http://lyricards.redatomize.com/')
+	@oauth = Koala::Facebook::OAuth.new(474165465927936, "3460693681a1781d0677d60447e8b88f",'http://lyricards.redatomize.com/authenticate')
 	Thread.new{Facebook::user FbGraph::User.me(params[:access_token]).identifier
 		ActiveRecord::Base.connection.close
 	}
