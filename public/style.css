@@ -183,7 +183,9 @@ a:active {
 	padding-top: 30px;
 }
 #selected{
-	overflow: 
+	display: block;
+	overflow: scroll;
+	overflow-x: hidden;
 	width: 400px;
 }
 .label-info{

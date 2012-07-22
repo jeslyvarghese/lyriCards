@@ -1,7 +1,9 @@
+%script{:type=>'text/javascript',:src=>'/scripts/list.min.js'}
 :javascript
-
   $(document).ready(function(){
+    $('#search').hide();
     var shout_list = new Array();
+    var options = {valueNames:['name']}
     $("#submit").click(function(){
           $.each(shout_list,function(index){
           document.getElementById('friend_stack').value+=","+shout_list[index];
@@ -14,7 +16,7 @@
     		if(already_added(this.id)==false)
     		   {  $(this  ).attr("selected",true);
     		   		shout_list.push(this.id);
-    		   		elem = $('<span>');
+    		   		elem = $('<li>');
     		   		elem.attr("class","label label-info");
     		   		elem.attr("id","lab"+$(this).attr("id"));
     		   		elem.html($(this).attr("name"));
@@ -40,10 +42,11 @@
     			});
     		return flag;
     	}
-    $("#show_friends").click(function(){
-    	if($(this).attr("loaded")=="false"){
+    $("#load_friends").click(function(){
+      if($(this).attr("loaded")=="false"){
     	$(this).attr("loaded",true)
-    	$.ajax({
+    	$(this).html("<img src='/images/busy.gif'/>Loading friend list..");
+      $.ajax({
     		url: "/friends",
     		dataType: "json",
     		success:function(data,status){
@@ -52,11 +55,14 @@
    						item.class = 'friend'
   						item.attr("id",data[user].id);
   						item.attr("name",data[user].name);
-  						item.html("<div class='finfo'><img src=	https://graph.facebook.com/"+data[user].id+"/picture/><h2>"+data[user].name+"</h2></div>");
-  						$("#friends").append(item);
+  						item.html("<div class='finfo'><img src=	https://graph.facebook.com/"+data[user].id+"/picture/><h2 class='name'>"+data[user].name+"</h2></div>");
+  						$("#friend-list").append(item);
   						$("#"+data[user].id).bind('click',friend_click);
-    });
-    		}
+              });
+              $(this).html("<h3>Select them");
+              $('#search').show();
+              var friendList = new List('friends', options);
+    		  }
     		});
                     }});
     });
@@ -84,11 +90,14 @@
           %textarea{:rows=>"3",:cols=>"50",:name=>"message"}
         #show_friends{:class=>"option",:loaded=>"false"}
           %i{:class=>"icon-user"}
-          %h3 Drag em!!
+          #load_friends{:loaded=>"false"} 
+            %h3 Click to tag some friends
           #friends
+            %input#search{:type=>"text", :class=>"search"}
+            %ul#friend-list{:class=>'list'}
   %div{:class=>"span8 offset1"}
     %img{:src=>"usr_images/#{@file_path}",:id=>"image"}
-  #select_box{:class=>"span2 offset3"}
-    #selected
+    #select_box{:class=>"span2 offset3"}
+      #selected
     #button
       %button#submit{:class=>"btn btn-success"}Yay!! Let's do it!

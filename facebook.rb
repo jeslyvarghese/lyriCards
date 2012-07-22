@@ -16,20 +16,23 @@ module Facebook
 			params[:user_list].each do |user|
 				fb_user = FbGraph::User.fetch(user)
 				tags<< FbGraph::Tag.new(
-    						:id => user,
+    						:id => fb_user.identifier.to_i,
     						:name =>fb_user.name,
-    						:x => 20+Random.rand(800),
-    						:y => 10+Random.rand(300)
+    						:x => 20+Random.rand(90),
+    						:y => 10+Random.rand(90)
   				)
 		end
 		}
 		
 		Thread.new{
 			tag_thread.join
-		me.photo!(
+	    	FbGraph::User.me(params[:access_token]).photo!(
 				:source=> File.new(File.join(File.dirname(__FILE__), params[:file_name])),
 				:message=>params[:message],
-				:tags=>tags)
+				:tags=>tags
+				)
+	    	Facebook::log_post fb_user.identifier.to_i, params[:file_name]
+	    	ActiveRecord::Base.connection.close
 		}
 
 		#case secrecy
@@ -53,5 +56,13 @@ module Facebook
 	end
 
 	def self.as_private_message
+	end
+
+	def self.user(uid)
+		User.find_or_create_by_fbuid(:fbuid=>uid)
+	end
+
+	def self.log_post(fbuid,filename)
+		Post.create(:fbuid=>fbuid,:filename=>filename)
 	end
 end

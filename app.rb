@@ -14,8 +14,8 @@ end
 @friends={}
 get '/' do
 	@app_id = 	'474165465927936'
-	@redirect_id = 'http://lyricards.redatomize.com/authenticate'
-	@permission_names = 'publish_stream,read_friendlists,publish_actions'
+	@redirect_id = 'http://lyricards.redatomize.com/'
+	@permission_names = 'publish_stream,publish_actions'
 	@state_string=(0...25).map{65.+(rand(25)).chr}.join
 	haml :index
 end
@@ -112,12 +112,20 @@ post '/success' do
 	params[:message] = params[:message]
 	params[:option] = params[:pub_opt]
 	params[:access_token] = session[:access_token]
+	session[:pic_link] = session[:pic_name]
 	session[:pic_name] = nil
 	Facebook::upload_photo params
 	haml :success
 end
 
-get '/thanks' do
+get '/thanx' do
+	FbGraph::User.me(session[:access_token]).feed!(
+			:message => "I made a card via lyriCards.. :) <3",
+			:picture => "http://lyricards.redatomize.com/usr_images/#{session[:pic_link]}",
+			:link => "http://lyricards.redatomize.com",
+			:name => "lyriCards",
+			:description => 'Make awesome cards from the lyrics you love..'
+			)
 	haml :thanx
 end
 
@@ -141,8 +149,21 @@ get '/authenticate' do
 	state = params[:state]
 	code = params[:code]
 	haml :not_allowed if params[:error_reason]=="user_denied"
-	@oauth = Koala::Facebook::OAuth.new(474165465927936, "3460693681a1781d0677d60447e8b88f",'http://lyricards.redatomize.com/authenticate')
+	@oauth = Koala::Facebook::OAuth.new(474165465927936, "3460693681a1781d0677d60447e8b88f",'http://lyricards.redatomize.com/')
+	Thread.new{Facebook::user FbGraph::User.me(params[:access_token]).identifier
+		ActiveRecord::Base.connection.close
+	}
 	access_token = @oauth.get_access_token(code)
 	session[:access_token] = access_token
 	redirect '/search'
+end
+
+error do
+  @error = request.env['sinatra_error'].name
+  haml :err
+end
+
+not_found do
+  @val = 'Oh my!!! There is no page like!!!'
+  haml :err
 end

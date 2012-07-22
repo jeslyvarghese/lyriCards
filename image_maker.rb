@@ -26,7 +26,7 @@ module ImageMaker
 		pic.annotate(content,800,250,20,5,content_text){
 			self.fill = params[:text_color]
 		}
-		file_name = (0...25).map{65.+(rand(25)).chr}.join
+		file_name = "#{(0...25).map{65.+(rand(25)).chr}.join}#{Date.new.to_time.to_i}"
 		pic.write("#{Dir.pwd}/public/usr_images/#{file_name}.png")
 		return "#{file_name}.png"
 	end

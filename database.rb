@@ -6,7 +6,7 @@ ActiveRecord::Base.establish_connection(
 :host => 'instance21633.db.xeround.com',
 :port=>14290,  
 :database => "lyri",
-:username=>"lyri_root",
+:username=> "lyri_root",
 :password => "walnut"  
 )
 
@@ -33,4 +33,12 @@ class Lyric<ActiveRecord::Base
 	belongs_to :track
 	belongs_to :album
 	validates :mxid, :uniqueness=>true
+end
+
+class User<ActiveRecord::Base
+	has_many :posts
+end
+
+class Post<ActiveRecord::Base
+	belongs_to :user
 end

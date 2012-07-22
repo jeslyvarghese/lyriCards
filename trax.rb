@@ -12,7 +12,7 @@ module Trax
 				result[:album_name] = track.album_name
 				search_list<<result	
 			end
-		p "search complete.."
+		p "search complete..		"
 		Thread.new { Trax::result_to_db tracks }
 		return search_list
 	end

@@ -80,7 +80,8 @@
   %blockquote 
     %p Every heart sings a song, incomplete, until another heart whispers back. Those who wish to sing always find a song. At the touch of a lover, everyone becomes a poet.
     %small Plato
-
+.span3
+  %button{:id=>"make-card",:class=>"btn btn-primary"}Lets Make The Card!!
 #lyric_selector
   %div{:class=>"span8 offset2"}
     #lyrics
@@ -95,5 +96,3 @@
       
   %form{:id=>"levitate",:method=>"post",:action=>"/spice"}
     %input{:type=>"hidden",:id=>"music_box",:name=>"selected_lyrics"}
-    .span3
-      %button{:id=>"make-card",:class=>"btn btn-primary"}Lets Make The Card!!
