@@ -72,7 +72,7 @@ post '/spice' do
 			max_len = selected.max_by{|a| a.length}
 			max_len = max_len.gsub(" ","").length
 			#font_size -=(max_len*font_size-850) if max_len>850
-			set :thread , Thread.new{	Thread.current[:output] = Facebook::fetch_friends session[:access_token],session[:friends]}
+			set :thread , Thread.new{	Thread.current[:output] = Facebook::fetch_friends session[:access_token]}
 			@sel[:max_size] = max_len
 			@sel[:lyrics] = selected
 			@sel[:font_size]= font_size
@@ -150,11 +150,11 @@ get '/authenticate' do
 	code = params[:code]
 	haml :not_allowed if params[:error_reason]=="user_denied"
 	@oauth = Koala::Facebook::OAuth.new(474165465927936, "3460693681a1781d0677d60447e8b88f",'http://lyricards.redatomize.com/authenticate')
-	Thread.new{Facebook::user FbGraph::User.me(params[:access_token]).identifier
-		ActiveRecord::Base.connection.close
-	}
 	access_token = @oauth.get_access_token(code)
 	session[:access_token] = access_token
+		Thread.new{Facebook::user FbGraph::User.me(access_token).identifier
+		ActiveRecord::Base.connection.close
+	}
 	redirect '/search'
 end
 
