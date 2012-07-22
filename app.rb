@@ -14,7 +14,7 @@ end
 @friends={}
 get '/' do
 	@app_id = 	'474165465927936'
-	@redirect_id = 'http://lyricards.redatomize.com/images/heart.png'
+	@redirect_id = 'http://lyricards.redatomize.com/authenticate'
 	@permission_names = 'publish_stream,publish_actions'
 	@state_string=(0...25).map{65.+(rand(25)).chr}.join
 	haml :index
@@ -122,7 +122,7 @@ get '/thanx' do
 	FbGraph::User.me(session[:access_token]).feed!(
 			:message => "I made a card via lyriCards.. :) <3",
 			:picture => "http://lyricards.redatomize.com/usr_images/#{session[:pic_link]}",
-			:link => "http://lyricards.redatomize.com",
+			:link => "http://lyricards.redatomize.com/images/heart.png",
 			:name => "lyriCards",
 			:description => 'Make awesome cards from the lyrics you love..'
 			)
