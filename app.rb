@@ -72,6 +72,7 @@ post '/spice' do
 			max_len = selected.max_by{|a| a.length}
 			max_len = max_len.gsub(" ","").length
 			#font_size -=(max_len*font_size-850) if max_len>850
+			set :friend_threads, :friend_threads||Array.new
 			set :friend_threads[session[:access_token]], Thread.new{	session[:friends] = Facebook::fetch_friends session[:access_token]}
 			@sel[:max_size] = max_len
 			@sel[:lyrics] = selected
