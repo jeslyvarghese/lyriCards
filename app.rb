@@ -97,9 +97,8 @@ end
 
 get'/friends' do
 	friend_threads[session[:access_token]].join
-	@friends = session[:friends]
 	content_type :json
-	@friends.to_json
+	session[:friends].to_json
 end
 
 post '/success' do
