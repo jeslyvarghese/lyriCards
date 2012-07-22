@@ -39,7 +39,6 @@ end
 get '/lyrics' do
 	redirect '/' if session[:access_token].nil?
 	track_id = params[:track_id]
-	Thread.new{	session[:friends] = Facebook::fetch_friends session[:access_token]}
 	begin
 		@lyric = Trax.lyrics? track_id
 		@lyric = @lyric.split("\n")
@@ -96,8 +95,9 @@ post '/show' do
 end
 
 get'/friends' do
+	@friends = (Facebook::fetch_friends session[:access_token]).to_json
 	content_type :json
-	session[:friends].to_json
+	@friends
 end
 
 post '/success' do
