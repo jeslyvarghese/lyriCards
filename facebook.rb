@@ -22,8 +22,8 @@ module Facebook
   				)
 		end
 		}
-		
 		Thread.new{
+			puts tags
 			tag_thread.join
 	    	FbGraph::User.me(params[:access_token]).photo!(
 				:source=> File.new(File.join(File.dirname(__FILE__), params[:file_name])),
