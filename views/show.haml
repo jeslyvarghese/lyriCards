@@ -33,22 +33,20 @@
             FB.init({appId: '474165465927936', cookie: true});
             function init() {
                   FB.api('/me', function(response) {
-                      $("#jfmfs-container").jfmfs({ max_selected: 1, max_selected_message: "{0} of {1} selected"});
+                      $("#jfmfs-container").jfmfs({ max_selected: 10, max_selected_message: "{0} of {1} selected"});
                   });
                 }              
 
                 $(document).ready(
                   function(){init();
                   $('#submit').click(function(){$('#publish').submit();});
+                  var friendSelector = $("#jfmfs-container").data('jfmfs');             
+                  $("#friend_stack").val(friendSelector.getSelectedIds().join(', ')); 
                   });
-                $("#add").live("click", function() {
-                    var friendSelector = $("#jfmfs-container").data('jfmfs');             
-                    $("#friend_stack").val($("#friend_stack").val()+','+friendSelector.getSelectedIds().join(', ')); 
-                });
+
             
           %div
             #jfmfs-container
-  %button#add{:class=>"btn btn-success"}Add Selected
   %div{:class=>"span8 offset1"}
     %img{:src=>"usr_images/#{@file_path}",:id=>"image"}
     #select_box{:class=>"span2 offset3"}

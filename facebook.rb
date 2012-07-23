@@ -10,13 +10,12 @@ module Facebook
 
 	def self.upload_photo(params)
 		tags =[]
-		puts "Params#{params}"
-			Thread.new{
+		Thread.new{
 				params[:user_list].each do |user|
 					fb_user = FbGraph::User.fetch(user)
 					tags<< FbGraph::Tag.new(
-    						:id => fb_user.identifier.to_i,
-    						:name =>fb_user.name,
+    					#	:id => fb_user.identifier.to_i,
+    						:name =>"Jesly Varghese",
     						:x => 20+Random.rand(90),
     						:y => 10+Random.rand(90)
   							)
@@ -27,8 +26,8 @@ module Facebook
 				:tags=>tags
 				)
 	    	
-	    	Facebook::log_post fb_user.identifier.to_i, params[:file_name]
-	    	ActiveRecord::Base.connection.close
+	    	#Facebook::log_post fb_user.identifier.to_i, params[:file_name]
+	    	#ActiveRecord::Base.connection.close
 		}
 
 		#case secrecy
