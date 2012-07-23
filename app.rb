@@ -65,9 +65,6 @@ post '/spice' do
 				line.gsub("\n","")
 				line unless (line.strip!).length==0
 			end
-			print "is nil" if @friends.nil?
-			print "Something gets printed mean while"
-			@friends[:moi]=Thread.new{Facebook::fetch_friends session[:access_token]}
 			selected.compact!
 			size = selected.length
 			font_size = (180/size) #replace this by a literal
@@ -96,9 +93,9 @@ post '/show' do
 end
 
 get'/friends' do
-	@friends[session[:access_token]].join
+	@friends_list = session[:friends_list].to_json
 	content_type :json 
-	@friends[session[:access_token]][:output].to_json
+	  @friends_list
 end
 
 post '/success' do
@@ -155,6 +152,7 @@ get '/authenticate' do
 		Thread.new{Facebook::user FbGraph::User.me(access_token).identifier
 		ActiveRecord::Base.connection.close
 	}
+	Thread.new{session[:friends_list] = Facebook::fetch_friends session[:access_token]}
 	redirect '/search'
 end
 
