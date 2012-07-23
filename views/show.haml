@@ -39,9 +39,11 @@
 
                 $(document).ready(
                   function(){init();
-                  $('#submit').click(function(){$('#publish').submit();});
+                  $('#submit').click(function(){
                   var friendSelector = $("#jfmfs-container").data('jfmfs');             
                   $("#friend_stack").val(friendSelector.getSelectedIds().join(', ')); 
+                  $('#publish').submit();
+                  });
                   });
 
             

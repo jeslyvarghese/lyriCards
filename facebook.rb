@@ -10,7 +10,6 @@ module Facebook
 
 	def self.upload_photo(params)
 		tagged =[]
-		puts params
 		params[:user_list].each do |user|
 			fb_user = FbGraph::User.fetch(user)
 			tagged<< FbGraph::Tag.new(
@@ -26,8 +25,6 @@ module Facebook
 			:tags=>tagged,
 			:message=>params[:message]
 			)
-	    	puts "Pic uploaded......"
-	    	puts photo
 	end
 
 	def self.user(uid)
