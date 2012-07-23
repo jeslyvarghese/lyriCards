@@ -46,11 +46,12 @@
                     var friendSelector = $("#jfmfs-container").data('jfmfs');             
                     $("#selected-friends").html(friendSelector.getSelectedIds().join(', ')); 
                 });
-            %div
-              #username
-              %a#show-friends{:href=>"#",:style=>"display:none;"}Show Slected Friends
-              #selected-friends{style=>"height:30px;"}
-              #jfmfs-container
+            
+          %div
+            #username
+            %a#show-friends{:href=>"#",:style=>"display:none;"}Show Slected Friends
+            #selected-friends{style=>"height:30px;"}
+            #jfmfs-container
   %div{:class=>"span8 offset1"}
     %img{:src=>"usr_images/#{@file_path}",:id=>"image"}
     #select_box{:class=>"span2 offset3"}
