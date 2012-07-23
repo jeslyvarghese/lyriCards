@@ -11,6 +11,7 @@ module Facebook
 	def self.upload_photo(params)
 		me = FbGraph::User.me(params[:access_token])
 		tags =[]
+		puts "Params#{params}"
 		tag_thread = Thread.new{
 			params[:user_list].each do |user|
 				fb_user = FbGraph::User.fetch(user)
@@ -22,6 +23,7 @@ module Facebook
   				)
 		end
 		}
+
 		Thread.new{
 			puts tags
 			tag_thread.join
