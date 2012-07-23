@@ -48,16 +48,15 @@
     		url: "#{@friends}",
     		dataType: "json",
     		success:function(data,status){
-    			$.each(data, function(data) {$.each(data,function(user){
-  						console.log(user.name);
+    			$.each(data, function(user) {
               item = $('<li>')
    						item.class = 'friend'
-  						item.attr("id",data.id);
-  						item.attr("name",data.name);
+  						item.attr("id",data[user].id);
+  						item.attr("name",data[user].name);
   						item.html("<div class='finfo'><img src=	https://graph.facebook.com/"+data[user].id+"/picture/><h2 class='name'>"+data[user].name+"</h2></div>");
   						$("#friend-list").append(item);
   						$("#"+data[user].id).bind('click',friend_click);
-              });});
+              });
               $(this).html("<h3>Select them</h3> click to tag/untag");
               $('#search').show();
               var friendList = new List('friends', options);
