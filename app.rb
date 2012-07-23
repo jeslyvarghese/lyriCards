@@ -66,7 +66,7 @@ post '/spice' do
 				line.gsub("\n","")
 				line unless (line.strip!).length==0
 			end
-			set :friendlist_threads[session[:access_token]]=>Thread.new{Facebook::fetch_friends session[:access_token]}
+			@friends[session[:access_token]]=Thread.new{Facebook::fetch_friends session[:access_token]}
 			selected.compact!
 			size = selected.length
 			font_size = (180/size) #replace this by a literal
@@ -96,9 +96,9 @@ post '/show' do
 end
 
 get'/friends' do
-	:friendlist_threads[session[:access_token]].join
+	@friends[session[:access_token]].join
 	content_type :json 
-	(:friendlist_threads[session[:access_token]].output).to_json
+	@friends[session[:access_token]].to_json
 end
 
 post '/success' do
