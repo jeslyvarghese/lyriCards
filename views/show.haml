@@ -48,8 +48,8 @@
     		url: "#{@friends}",
     		dataType: "json",
     		success:function(data,status){
-    			$.each(data, function(user) {$.each(user,function(data){
-  						console.log(data);
+    			$.each(data, function(data) {$.each(user,function(user){
+  						console.log(data.name);
               item = $('<li>')
    						item.class = 'friend'
   						item.attr("id",data.id);
