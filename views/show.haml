@@ -1,3 +1,4 @@
+%script{:type=>'text/javascript',:src=>"http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"}
 %script{:type=>'text/javascript',:src=>'/scripts/list.min.js'}
 %script{:type=>'text/javascript',:src=>'/jquery.facebook.multifriend.select.js'}
 %link{:rel=>'stylesheet',:href=>'jquery.facebook.multifriend.select-list.css'}
@@ -28,6 +29,7 @@
           #load_friends{:loaded=>"false"} 
             %h3 Click to tag some friends
           %div{:id=>'fb-root'}
+          %script{:src=>"http://connect.facebook.net/en_US/all.js"}
           :javascript
             FB.init({appId: '474165465927936', cookie: true});
             function init() {
