@@ -9,9 +9,8 @@ require_relative 'facebook.rb'
 configure do
   enable :sessions
   set :session_secret, ENV['SESSION_SECRET'] ||= 'super secret'
+  @friends={}
 end
-
-@friends={}
 get '/' do
 	@app_id = 	'474165465927936'
 	@redirect_id = 'http://lyricards.redatomize.com/authenticate'
