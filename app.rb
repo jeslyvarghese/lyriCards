@@ -65,6 +65,7 @@ post '/spice' do
 				line.gsub("\n","")
 				line unless (line.strip!).length==0
 			end
+			puts "is nil" if @friends.nil?
 			@friends[:moi]=Thread.new{Facebook::fetch_friends session[:access_token]}
 			selected.compact!
 			size = selected.length
