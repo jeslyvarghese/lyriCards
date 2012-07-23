@@ -43,14 +43,13 @@
     		return flag;
     	}
     $("#load_friends").click(function(){
-    	$(this).attr("loaded",true)
     	$(this).html("<img src='/images/busy.gif'/>Loading friend list..");
       $.ajax({
     		url: "#{@friends}",
     		dataType: "json",
     		success:function(data,status){
     			$.each(data, function(user) {$.each(user,function(data){
-  						console.log(user);
+  						console.log(data);
               item = $('<li>')
    						item.class = 'friend'
   						item.attr("id",data.id);
