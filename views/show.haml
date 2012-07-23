@@ -48,7 +48,7 @@
     		url: "#{@friends}",
     		dataType: "json",
     		success:function(data,status){
-    			$.each(data, function(data) {$.each(user,function(user){
+    			$.each(data, function(data) {$.each(data,function(user){
   						console.log(data.name);
               item = $('<li>')
    						item.class = 'friend'
