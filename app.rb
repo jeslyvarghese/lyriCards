@@ -92,12 +92,6 @@ post '/show' do
 	haml :show
 end
 
-get'/friends' do
-	Thread.current.join
-	@friend_list = Thread.current[access_token.to_sym]
-	content_type :json 
-	  @friends_list.to_json
-end
 
 post '/success' do
 	redirect '/' if session[:access_token].nil?||session[:pic_name].nil?
@@ -121,7 +115,7 @@ get '/thanx' do
 			:message => "I made a card via lyriCards.. :) <3",
 			:picture => "http://lyricards.redatomize.com/usr_images/#{session[:pic_link]}",
 			:link => "http://lyricards.redatomize.com/images/heart.png",
-			:name => "lyriCards",
+			:name => "lyriCards",	
 			:description => 'Make awesome cards from the lyrics you love..'
 			)
 	haml :thanx
@@ -154,7 +148,6 @@ get '/authenticate' do
 		Facebook::user FbGraph::User.me(access_token).identifier
 		ActiveRecord::Base.connection.close
 	}
-	Thread.new{Thread.current[access_token.to_sym] =  Facebook::fetch_friends session[:access_token]}
 	redirect '/search'
 end
 

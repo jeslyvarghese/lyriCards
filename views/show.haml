@@ -34,16 +34,15 @@
             function init() {
                   FB.api('/me', function(response) {
                       $("#jfmfs-container").jfmfs({ max_selected: 1, max_selected_message: "{0} of {1} selected"});
-  
                   });
                 }              
 
                 $(document).ready(
-                  function(){init();
-                  $('#submit').click(function(){
-                      $('#friend_stack').val(friendSelector.getSelectedIds().join(', '));
-                    });
-                  });
+                  function(){init();});
+                $("#submit").live("click", function() {
+                    var friendSelector = $("#jfmfs-container").data('jfmfs');             
+                    $("#friend_stack").val(friendSelector.getSelectedIds().join(', ')); 
+                });
             
           %div
             #jfmfs-container
