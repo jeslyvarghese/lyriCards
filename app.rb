@@ -91,7 +91,6 @@ post '/show' do
 		@file_path = ImageMaker::make_image params
 		session[:pic_name] = @file_path
 	end
-	@friends = "https://graph.facebook.com/#{(FbGraph::User.me(session[:access_token]).identifier)}/friends?access_token=#{session[:access_token]}"
 	haml :show
 end
 
