@@ -149,7 +149,8 @@ get '/authenticate' do
 	@oauth = Koala::Facebook::OAuth.new(474165465927936, "3460693681a1781d0677d60447e8b88f",'http://lyricards.redatomize.com/authenticate')
 	access_token = @oauth.get_access_token(code)
 	session[:access_token] = access_token
-		Thread.new{Facebook::user FbGraph::User.me(access_token).identifier
+    Thread.new{
+		Thread.current[access_token.to_sym] = Facebook::user FbGraph::User.me(access_token).identifier
 		ActiveRecord::Base.connection.close
 	}
 	Thread.new{session[:friends_list] = Facebook::fetch_friends session[:access_token]}
