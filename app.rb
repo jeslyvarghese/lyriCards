@@ -106,7 +106,7 @@ post '/success' do
 	params[:access_token] = session[:access_token]
 	session[:pic_link] = session[:pic_name]
 	session[:pic_name] = nil
-	Thread.new{Facebook::upload_photo params}
+	Facebook::upload_photo params
 	haml :success
 end
 
