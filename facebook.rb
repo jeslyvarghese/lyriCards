@@ -9,29 +9,24 @@ module Facebook
 	end
 
 	def self.upload_photo(params)
-		me = FbGraph::User.me(params[:access_token])
 		tags =[]
 		puts "Params#{params}"
-		tag_thread = Thread.new{
-			params[:user_list].each do |user|
-				fb_user = FbGraph::User.fetch(user)
-				tags<< FbGraph::Tag.new(
+			Thread.new{
+				params[:user_list].each do |user|
+					fb_user = FbGraph::User.fetch(user)
+					tags<< FbGraph::Tag.new(
     						:id => fb_user.identifier.to_i,
     						:name =>fb_user.name,
     						:x => 20+Random.rand(90),
     						:y => 10+Random.rand(90)
-  				)
-		end
-		}
-
-		Thread.new{
-			puts tags
-			tag_thread.join
+  							)
+				end
 	    	FbGraph::User.me(params[:access_token]).photo!(
 				:source=> File.new(File.join(File.dirname(__FILE__), params[:file_name])),
-				:message=>tags.to_s,
+				:message=>params[:message],
 				:tags=>tags
 				)
+	    	
 	    	Facebook::log_post fb_user.identifier.to_i, params[:file_name]
 	    	ActiveRecord::Base.connection.close
 		}
