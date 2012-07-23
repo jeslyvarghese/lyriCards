@@ -93,9 +93,10 @@ post '/show' do
 end
 
 get'/friends' do
-	@friends_list = session[:friends_list].to_json
+	Thread.current.join
+	@friend_list = Thread.current[access_token.to_sym]
 	content_type :json 
-	  @friends_list
+	  @friends_list.to_json
 end
 
 post '/success' do
@@ -150,10 +151,10 @@ get '/authenticate' do
 	access_token = @oauth.get_access_token(code)
 	session[:access_token] = access_token
     Thread.new{
-		Thread.current[access_token.to_sym] = Facebook::user FbGraph::User.me(access_token).identifier
+		Facebook::user FbGraph::User.me(access_token).identifier
 		ActiveRecord::Base.connection.close
 	}
-	Thread.new{session[:friends_list] = Facebook::fetch_friends session[:access_token]}
+	Thread.new{Thread.current[access_token.to_sym] =  Facebook::fetch_friends session[:access_token]}
 	redirect '/search'
 end
 
