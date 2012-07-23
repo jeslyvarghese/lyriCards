@@ -33,24 +33,19 @@
             FB.init({appId: '474165465927936', cookie: true});
             function init() {
                   FB.api('/me', function(response) {
-                      $("#username").html("<img src='https://graph.facebook.com/" + response.id + "/picture'/><div>" + response.name + "</div>");
                       $("#jfmfs-container").jfmfs({ max_selected: 1, max_selected_message: "{0} of {1} selected"});
-                      $("#logged-out-status").hide();
-                      $("#show-friends").show();
   
                   });
                 }              
 
-                $(document).ready(function(){init()});
-                $("#show-friends").live("click", function() {
-                    var friendSelector = $("#jfmfs-container").data('jfmfs');             
-                    $("#selected-friends").html(friendSelector.getSelectedIds().join(', ')); 
-                });
+                $(document).ready(
+                  function(){init();
+                  $('#submit').click(function(){
+                      $('#friend_stack').val(friendSelector.getSelectedIds().join(', '));
+                    });
+                  });
             
           %div
-            #username
-            %a#show-friends{:href=>"#",:style=>"display:none;"}Show Slected Friends
-            #selected-friends{:style=>"height:30px;"}
             #jfmfs-container
   %div{:class=>"span8 offset1"}
     %img{:src=>"usr_images/#{@file_path}",:id=>"image"}
