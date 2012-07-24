@@ -15,8 +15,7 @@ module Facebook
 			tagged<< FbGraph::Tag.new(
     		:name =>fb_user.name,
     		:x => 20+Random.rand(90),
-    		:y => 10+Random.rand(90)
-  		)
+    		:y => 10+Random.rand(90))
 		end
 	    puts tagged
 	    photo = FbGraph::User.me(params[:access_token]).photo!(
