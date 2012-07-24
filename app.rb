@@ -114,7 +114,7 @@ get '/thanx' do
 	FbGraph::User.me(session[:access_token]).feed!(
 			:message => "I made a card via lyriCards.. :) <3",
 			:picture => "http://lyricards.redatomize.com/usr_images/#{session[:pic_link]}",
-			:link => "http://lyricards.redatomize.com/images/heart.png",
+			:link => "http://lyricards.redatomize.com",
 			:name => "lyriCards",	
 			:description => 'Make awesome cards from the lyrics you love..'
 			)
