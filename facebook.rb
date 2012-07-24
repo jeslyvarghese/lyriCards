@@ -12,7 +12,9 @@ module Facebook
 		tagged =[]
 		params[:user_list].each do |user|
 			fb_user = FbGraph::User.fetch(user.strip)
+			puts fb_user.name
 			tagged<< FbGraph::Tag.new(
+    		:id=>fb_user.identifier.to_i,
     		:name =>fb_user.name,
     		:x => 20+Random.rand(90),
     		:y => 10+Random.rand(90))
