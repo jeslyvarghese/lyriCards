@@ -22,8 +22,8 @@ module Facebook
 	    
 	    photo = FbGraph::User.me(params[:access_token]).photo!(
 			:source=> File.new(File.join(File.dirname(__FILE__), params[:file_name])),
-			:tags=>tagged,
-			:message=>params[:message]
+			:message=>params[:message],
+			:tags=>tagged
 			)
 	    User.create(:fbuid=>FbGraph::User.me(params[:access_token]).identifier,:filename=> params[:file_name])
 	end
