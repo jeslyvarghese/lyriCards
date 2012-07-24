@@ -25,7 +25,7 @@ module Facebook
 			:message=>params[:message],
 			:tags=>tagged
 			)
-	    User.create(:fbuid=>FbGraph::User.me(params[:access_token]).identifier,:filename=> params[:file_name])
+	    #User.create(:fbuid=>FbGraph::User.me(params[:access_token]).identifier,:filename=> params[:file_name])
 	end
 
 	def self.user(uid)
