@@ -14,23 +14,19 @@ module Facebook
     		:name =>'Jesly Varghese',
     		:x => 20+Random.rand(90),
     		:y => 10+Random.rand(90))]
-		
 		params[:user_list].each do |user|
 			fb_user = FbGraph::User.fetch(user.strip)
-			puts fb_user.file_name
 			tagged<< FbGraph::Tag.new(
     		:id=>fb_user.identifier.to_i,
     		:name =>fb_user.name,
     		:x => 20+Random.rand(90),
     		:y => 10+Random.rand(90))
 		end
-	    puts tagged
 	    photo = FbGraph::User.me(params[:access_token]).photo!(
 			:source=> File.new(File.join(File.dirname(__FILE__), params[:file_name])),
 			:message=>params[:message],
 			:tags=>tagged
 			)
-	    puts 'Upload Completed'
 	    #User.create(:fbuid=>FbGraph::User.me(params[:access_token]).identifier,:filename=> params[:file_name])
 	end
 
