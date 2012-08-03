@@ -12,7 +12,7 @@ configure do
   @friends={}
 end
 get '/' do
-	@app_id = 	'232653716855302'
+	@app_id = 	''
 	@redirect_id = 'http://localhost:4567/authenticate'
 	@permission_names = 'publish_stream,publish_actions'
 	@state_string=(0...25).map{65.+(rand(25)).chr}.join
@@ -141,7 +141,7 @@ get '/authenticate' do
 	state = params[:state]
 	code = params[:code]
 	haml :not_allowed if params[:error_reason]=="user_denied"
-	@oauth = Koala::Facebook::OAuth.new(232653716855302, "8a4a0d15cb6be51df31d1ac1a16bd61c",'http://localhost:4567/authenticate')
+	@oauth = Koala::Facebook::OAuth.new(, "",'http://localhost:4567/authenticate')
 	access_token = @oauth.get_access_token(code)
 	session[:access_token] = access_token
     Thread.new{

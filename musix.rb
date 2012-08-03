@@ -1,7 +1,7 @@
 require 'musix_match'
 
 module Musix #Wrapping MusixMatch APIs
-	MusixMatch::API::Base.api_key = '1964c381c2f1849f9eda1e3cbeacd55d'	
+	MusixMatch::API::Base.api_key = 'XXXXXXXXXXXXXXXXXXXXXXX' #get one its free
 	def self.search(query_string)
 		response = MusixMatch.search_track(:q => query_string,:page_size=>500)
 		if response.status_code == 200
